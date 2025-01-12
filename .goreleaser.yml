@@ -1,3 +1,5 @@
+version: 2
+
 before:
   hooks:
     - go mod download
@@ -13,10 +15,10 @@ archives:
       amd64: x86_64
 brews:
   - github:
-      owner: slimsag
+      owner: khulnasoft-lab
       name: homebrew-update-docker-tags
     folder: Formula
-    homepage: https://github.com/slimsag/update-docker-tags
+    homepage: https://github.com/khulnasoft-lab/update-docker-tags
     description: CLI to update Docker tag image versions
     test: |
       system "#{bin}/update-docker-tags --help"

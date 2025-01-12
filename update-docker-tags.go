@@ -245,8 +245,7 @@ func (r *repository) findLatestSemverTag() (string, error) {
 
 // Effectively the same as:
 //
-//  $ curl -s -D - -H "Authorization: Bearer $token" -H "Accept: application/vnd.docker.distribution.manifest.v2+json" https://index.docker.io/v2/khulnasoft/server/manifests/3.12.1 | grep Docker-Content-Digest
-//
+//	$ curl -s -D - -H "Authorization: Bearer $token" -H "Accept: application/vnd.docker.distribution.manifest.v2+json" https://index.docker.io/v2/khulnasoft/server/manifests/3.12.1 | grep Docker-Content-Digest
 func (r *repository) fetchImageDigest(tag string) (string, error) {
 	req, err := http.NewRequest("GET", "https://index.docker.io/v2/"+r.name+"/manifests/"+tag, nil)
 	if err != nil {
@@ -271,10 +270,9 @@ func (r *repository) fetchImageDigest(tag string) (string, error) {
 
 // Effectively the same as:
 //
-// 	$ export token=$(curl --user 'user:password' -s "https://auth.docker.io/token?service=registry.docker.io&scope=repository:khulnasoft/server:pull" | jq -r .token)
+//	$ export token=$(curl --user 'user:password' -s "https://auth.docker.io/token?service=registry.docker.io&scope=repository:khulnasoft/server:pull" | jq -r .token)
 //
 // Learn more ➡️ https://docs.docker.com/docker-hub/download-rate-limit/#how-can-i-check-my-current-rate
-//
 func fetchAuthToken(repositoryName string) (string, error) {
 	req, err := http.NewRequest("GET", fmt.Sprintf("https://auth.docker.io/token?service=registry.docker.io&scope=repository:%s:pull", repositoryName), nil)
 	if dockerUsername != "" && dockerPassword != "" {
@@ -297,8 +295,7 @@ func fetchAuthToken(repositoryName string) (string, error) {
 
 // Effectively the same as:
 //
-// 	$ curl -H "Authorization: Bearer $token" https://index.docker.io/v2/khulnasoft/server/tags/list
-//
+//	$ curl -H "Authorization: Bearer $token" https://index.docker.io/v2/khulnasoft/server/tags/list
 func (r *repository) fetchAllTags() ([]string, error) {
 	req, err := http.NewRequest("GET", fmt.Sprintf("https://index.docker.io/v2/%s/tags/list", r.name), nil)
 	if err != nil {
@@ -324,17 +321,14 @@ func (r *repository) fetchAllTags() ([]string, error) {
 
 // replaceAllSubmatchFunc is the missing regexp.ReplaceAllSubmatchFunc; to use it:
 //
-// 	pattern := regexp.MustCompile(...)
-// 	data = replaceAllSubmatchFunc(pattern, data, func(groups [][]byte) [][]byte {
-// 		// mutate groups here
-// 		return groups
-// 	})
+//	pattern := regexp.MustCompile(...)
+//	data = replaceAllSubmatchFunc(pattern, data, func(groups [][]byte) [][]byte {
+//		// mutate groups here
+//		return groups
+//	})
 //
 // This snippet is MIT licensed. Please cite by leaving this comment in place. Find
 // the latest version at:
-//
-//  https://gist.github.com/slimsag/14c66b88633bd52b7fa710349e4c6749
-//
 func replaceAllSubmatchFunc(re *regexp.Regexp, src []byte, repl func([][]byte) [][]byte, n int) []byte {
 	var (
 		result  = make([]byte, 0, len(src))
