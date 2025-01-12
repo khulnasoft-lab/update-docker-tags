@@ -14,16 +14,12 @@ archives:
       386: i386
       amd64: x86_64
 brews:
-  - github:
+  - tap:
       owner: khulnasoft-lab
       name: homebrew-update-docker-tags
     folder: Formula
-    homepage: https://github.com/khulnasoft-lab/update-docker-tags
+    homepage: https://github.com/khulnasoft-lab/homebrew-update-docker-tags
     description: CLI to update Docker tag image versions
-    test: |
-      system "#{bin}/update-docker-tags --help"
-    dependencies:
-      - go
 checksum:
   name_template: "checksums.txt"
 snapshot:
