@@ -8,7 +8,7 @@ on:
 
 jobs:
   call-e2e-merge:
-    uses: khulnasoft/actions/.github/workflows/e2e-merge.yml@auto-merge
+    uses: khulnasoft/action/e2e-marge/action.yml@auto-merge
     with:
       branch: 'auto-merge'
     secrets:
