@@ -1,6 +1,7 @@
 name: 'Dependency Updates'
 
 on:
+  repository_dispatch:
   pull_request:
     branches:
       - master
