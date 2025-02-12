@@ -1,15 +1,43 @@
 name: 'Dependency Updates'
 
 on:
-  workflow_dispatch:
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
-  call-e2e-merge:
-    uses: khulnasoft/actions/.github/workflows/e2e-merge.yml@main
-    with:
-      branch: 'main'
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  dependabot:
+    name: 'Dependabot Auto-Merge'
+    needs: [build, e2e]
+    runs-on: ubuntu-latest
+    if: > 
+      github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'
+    permissions:
+      pull-requests: write
+      contents: write
+      
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+
+      - name: 'Run E2E Merge Action'
+        uses: khulnasoft/actions/e2e-merge@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  renovate:
+    name: 'Renovate Bot'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+
+      - name: 'Run Renovate'
+        uses: renovatebot/github-action@v39.0.2
+        env:
+          RENOVATE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Run E2E Merge for Renovate PRs'
+        uses: khulnasoft/actions/e2e-merge@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
