@@ -8,8 +8,8 @@ on:
 
 jobs:
   call-e2e-merge:
-    uses: khulnasoft/action/e2e-marge/action.yml@auto-merge
+    uses: khulnasoft/actions/.github/workflows/e2e-merge.yml@main
     with:
-      branch: 'auto-merge'
+      branch: 'main'
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
