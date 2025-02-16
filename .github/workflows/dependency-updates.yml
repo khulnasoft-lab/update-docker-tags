@@ -34,11 +34,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 'Run Renovate'
-        uses: renovatebot/github-action@v39.0.2
+        uses: renovatebot/github-action@v41.0.13
         env:
           RENOVATE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 'Run E2E Merge for Renovate PRs'
-        uses: khulnasoft/actions/e2e-merge@master
+        uses: khulnasoft/actions/e2e-merge@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
